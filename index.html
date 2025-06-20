@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Pembayaran</title>
+    <title>Sistem Pembayaran Lengkap</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen py-8">
     <div class="container mx-auto max-w-4xl px-4">
-        <!-- Header -->
         <div class="text-center mb-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Sistem Pembayaran</h1>
             <p class="text-gray-600">Kelola transaksi dan pembayaran dengan mudah</p>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-8">
-            <!-- Form Pembayaran -->
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center mb-6">
                     <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,7 +23,6 @@
                 </div>
 
                 <form id="paymentForm" class="space-y-4">
-                    <!-- Nama Pelanggan -->
                     <div>
                         <label for="customerName" class="block text-sm font-medium text-gray-700 mb-2">
                             Nama Pelanggan
@@ -40,7 +37,6 @@
                         >
                     </div>
 
-                    <!-- Email -->
                     <div>
                         <label for="customerEmail" class="block text-sm font-medium text-gray-700 mb-2">
                             Email
@@ -55,7 +51,6 @@
                         >
                     </div>
 
-                    <!-- Produk/Layanan -->
                     <div>
                         <label for="productSelect" class="block text-sm font-medium text-gray-700 mb-2">
                             Pilih Produk/Layanan
@@ -74,7 +69,6 @@
                         </select>
                     </div>
 
-                    <!-- Jumlah -->
                     <div>
                         <label for="quantity" class="block text-sm font-medium text-gray-700 mb-2">
                             Jumlah
@@ -90,7 +84,6 @@
                         >
                     </div>
 
-                    <!-- Metode Pembayaran -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             Metode Pembayaran
@@ -108,13 +101,12 @@
                                 <input type="radio" name="paymentMethod" value="credit" class="text-blue-600 focus:ring-blue-500">
                                 <span class="ml-2 text-sm text-gray-700">Kartu Kredit</span>
                             </label>
-                            <label class="flex items-center">
+                             <label class="flex items-center">
                                 <input type="radio" name="paymentMethod" value="cash" class="text-blue-600 focus:ring-blue-500">
                                 <span class="ml-2 text-sm text-gray-700">Bayar Tunai</span>
                             </label>
                         </div>
                     </div>
-
                     
                     <div>
                         <label for="promoCode" class="block text-sm font-medium text-gray-700 mb-2">
@@ -139,7 +131,6 @@
                         <div id="promoMessage" class="mt-2 text-sm hidden"></div>
                     </div>
 
-                    <!-- Total -->
                     <div class="bg-gray-50 rounded-lg p-4">
                         <div class="flex justify-between items-center text-sm text-gray-600 mb-2">
                             <span>Subtotal:</span>
@@ -155,7 +146,6 @@
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
                     <button 
                         type="submit"
                         class="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
@@ -165,7 +155,6 @@
                 </form>
             </div>
 
-            <!-- Riwayat Transaksi -->
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center">
@@ -182,7 +171,6 @@
                     </button>
                 </div>
 
-                <!-- Statistics -->
                 <div class="grid grid-cols-3 gap-4 mb-6">
                     <div class="text-center p-3 bg-blue-50 rounded-lg">
                         <div class="text-2xl font-bold text-blue-600" id="totalTransactions">0</div>
@@ -198,9 +186,7 @@
                     </div>
                 </div>
 
-                <!-- Transaction List -->
                 <div id="transactionList" class="space-y-3 max-h-96 overflow-y-auto">
-                    <!-- Empty State -->
                     <div id="emptyState" class="text-center py-8 text-gray-500">
                         <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -213,7 +199,6 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi Pembayaran -->
     <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
         <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <div class="text-center mb-4">
@@ -227,8 +212,7 @@
             </div>
             
             <div id="paymentDetails" class="bg-gray-50 rounded-lg p-4 mb-4 text-sm">
-                <!-- Detail pembayaran akan ditampilkan di sini -->
-            </div>
+                </div>
             
             <button 
                 id="closeModalBtn"
@@ -239,7 +223,6 @@
         </div>
     </div>
 
-    <!-- Template untuk Transaction Item -->
     <template id="transactionTemplate">
         <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200">
             <div class="flex justify-between items-start mb-2">
@@ -266,6 +249,24 @@
         let currentDiscount = 0;
         let appliedPromoCode = '';
 
+        // **KODE PROMO DITAMBAHKAN DI SINI**
+        const promoCodes = {
+            "DISKON10": {
+                type: "percentage", // diskon persentase
+                discount: 10,       // 10% potongan
+                description: "Potongan 10% untuk semua produk"
+            },
+            "HEMAT50K": {
+                type: "fixed",      // diskon tetap
+                discount: 50000,    // potongan Rp 50.000
+                description: "Diskon tetap sebesar Rp 50.000"
+            },
+            "STUDENT20": {
+                type: "percentage",
+                discount: 20,
+                description: "Diskon 20% khusus pelajar"
+            }
+        };
 
         // Mapping metode pembayaran dengan warna
         const paymentMethodColors = {
@@ -358,7 +359,7 @@
             
             if (promoData.type === 'percentage') {
                 return Math.round(subtotal * promoData.discount / 100);
-            } else {
+            } else { // type === 'fixed'
                 return Math.min(promoData.discount, subtotal);
             }
         }
@@ -528,30 +529,26 @@
 
         // Render daftar transaksi
         function renderTransactions() {
-            // Hapus semua transaksi dari DOM
-            const transactionItems = transactionList.querySelectorAll('[data-transaction-id]');
-            transactionItems.forEach(item => item.remove());
+            transactionList.innerHTML = ''; // Clear list
 
             if (transactions.length === 0) {
+                transactionList.appendChild(emptyState);
                 emptyState.style.display = 'block';
                 clearHistoryBtn.classList.add('hidden');
             } else {
                 emptyState.style.display = 'none';
                 clearHistoryBtn.classList.remove('hidden');
 
-                // Tampilkan transaksi terbaru di atas
                 const sortedTransactions = [...transactions].reverse();
                 sortedTransactions.forEach(transaction => {
                     const transactionElement = createTransactionElement(transaction);
-                    // Tambahkan ID untuk referensi
-                    const container = transactionElement.querySelector('div');
-                    container.setAttribute('data-transaction-id', transaction.id);
                     transactionList.appendChild(transactionElement);
                 });
             }
 
             updateStatistics();
         }
+
 
         // Update statistik
         function updateStatistics() {
@@ -589,16 +586,14 @@
             
             const formData = new FormData(paymentForm);
             
-            // Validasi metode pembayaran
             if (!formData.get('paymentMethod')) {
                 alert('Silakan pilih metode pembayaran');
                 return;
             }
 
-            // Validasi total > 0
             const total = calculateSubtotal() - currentDiscount;
-            if (total <= 0) {
-                alert('Total pembayaran harus lebih dari 0');
+            if (calculateSubtotal() <= 0) {
+                alert('Silakan pilih produk terlebih dahulu');
                 return;
             }
 
@@ -648,10 +643,8 @@
         
         // Initialize app
         function initApp() {
-            updateTotal();
             renderTransactions();
-            
-            // Focus ke input nama saat halaman dimuat
+            updateTotal();
             document.getElementById('customerName').focus();
         }
 
