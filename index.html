@@ -3,175 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Pembayaran Lengkap</title>
+    <title>Sistem Pembayaran Modern</title>
+    <!-- Memuat Tailwind CSS untuk styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Keyframes untuk Animasi Masuk (fade-in) */
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom Keyframes untuk Animasi Muncul (fade-up) */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom Keyframes untuk Animasi Keluar (fade-out) */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Kelas untuk menerapkan animasi */
+        .animate-slide-in-down {
+            animation: slideInDown 0.5s ease-out forwards;
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.6s ease-out forwards;
+            opacity: 0; /* Mulai dari tidak terlihat */
+        }
+        .animate-fade-out {
+            animation: fadeOut 0.5s ease-in forwards;
+        }
+
+        /* Styling tambahan untuk modal, agar transisinya halus */
+        .modal-active {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+            pointer-events: auto !important;
+        }
+        /* Styling untuk font Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen py-8">
-    <div class="container mx-auto max-w-4xl px-4">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Sistem Pembayaran</h1>
-            <p class="text-gray-600">Kelola transaksi dan pembayaran dengan mudah</p>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen py-8 text-gray-800">
+    <!-- Kontainer utama aplikasi -->
+    <div class="container mx-auto max-w-5xl px-4">
+        <!-- Bagian judul aplikasi -->
+        <div class="text-center mb-8 animate-fade-up" style="animation-delay: 100ms;">
+            <h1 class="text-4xl font-extrabold text-gray-800 mb-2 tracking-tight">Sistem Pembayaran Modern</h1>
+            <p class="text-gray-600">Kelola transaksi dengan antarmuka yang lebih baik</p>
         </div>
 
-        <div class="grid lg:grid-cols-2 gap-8">
-            <div class="bg-white rounded-xl shadow-lg p-6">
+        <!-- Grid layout untuk formulir dan riwayat transaksi -->
+        <div class="grid lg:grid-cols-5 gap-8">
+            <!-- Form Pembayaran -->
+            <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6 animate-fade-up" style="animation-delay: 200ms;">
                 <div class="flex items-center mb-6">
-                    <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
-                    </svg>
+                    <!-- Icon Kartu Kredit (Lucide-react equivalent) -->
+                    <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
                     <h2 class="text-xl font-semibold text-gray-800">Form Pembayaran</h2>
                 </div>
 
                 <form id="paymentForm" class="space-y-4">
+                    <input type="text" id="customerName" name="customerName" placeholder="Nama Pelanggan" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" required>
+                    <input type="email" id="customerEmail" name="customerEmail" placeholder="Email Pelanggan" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" required>
+                    <select id="productSelect" name="product" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" required>
+                        <option value="">Pilih produk...</option>
+                        <option value="basic" data-price="50000">Paket Basic - Rp 50.000</option>
+                        <option value="premium" data-price="100000">Paket Premium - Rp 100.000</option>
+                        <option value="professional" data-price="200000">Paket Professional - Rp 200.000</option>
+                        <option value="enterprise" data-price="500000">Paket Enterprise - Rp 500.000</option>
+                    </select>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" required>
+                    
                     <div>
-                        <label for="customerName" class="block text-sm font-medium text-gray-700 mb-2">
-                            Nama Pelanggan
-                        </label>
-                        <input 
-                            type="text" 
-                            id="customerName"
-                            name="customerName"
-                            placeholder="Masukkan nama pelanggan"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            required
-                        >
-                    </div>
-
-                    <div>
-                        <label for="customerEmail" class="block text-sm font-medium text-gray-700 mb-2">
-                            Email
-                        </label>
-                        <input 
-                            type="email" 
-                            id="customerEmail"
-                            name="customerEmail"
-                            placeholder="contoh@email.com"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            required
-                        >
-                    </div>
-
-                    <div>
-                        <label for="productSelect" class="block text-sm font-medium text-gray-700 mb-2">
-                            Pilih Produk/Layanan
-                        </label>
-                        <select 
-                            id="productSelect"
-                            name="product"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            required
-                        >
-                            <option value="">Pilih produk...</option>
-                            <option value="basic" data-price="50000">Paket Basic - Rp 50.000</option>
-                            <option value="premium" data-price="100000">Paket Premium - Rp 100.000</option>
-                            <option value="professional" data-price="200000">Paket Professional - Rp 200.000</option>
-                            <option value="enterprise" data-price="500000">Paket Enterprise - Rp 500.000</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="quantity" class="block text-sm font-medium text-gray-700 mb-2">
-                            Jumlah
-                        </label>
-                        <input 
-                            type="number" 
-                            id="quantity"
-                            name="quantity"
-                            min="1"
-                            value="1"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            required
-                        >
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Metode Pembayaran
-                        </label>
-                        <div class="space-y-2">
-                            <label class="flex items-center">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Metode Pembayaran</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="flex items-center p-2 border rounded-lg hover:bg-gray-50 transition">
                                 <input type="radio" name="paymentMethod" value="transfer" class="text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700">Transfer Bank</span>
+                                <span class="ml-2 text-sm">Transfer Bank</span>
                             </label>
-                            <label class="flex items-center">
+                            <label class="flex items-center p-2 border rounded-lg hover:bg-gray-50 transition">
                                 <input type="radio" name="paymentMethod" value="ewallet" class="text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700">E-Wallet (OVO, GoPay, Dana)</span>
+                                <span class="ml-2 text-sm">E-Wallet</span>
                             </label>
-                            <label class="flex items-center">
+                            <label class="flex items-center p-2 border rounded-lg hover:bg-gray-50 transition">
                                 <input type="radio" name="paymentMethod" value="credit" class="text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700">Kartu Kredit</span>
+                                <span class="ml-2 text-sm">Kartu Kredit</span>
                             </label>
-                             <label class="flex items-center">
+                            <label class="flex items-center p-2 border rounded-lg hover:bg-gray-50 transition">
                                 <input type="radio" name="paymentMethod" value="cash" class="text-blue-600 focus:ring-blue-500">
-                                <span class="ml-2 text-sm text-gray-700">Bayar Tunai</span>
+                                <span class="ml-2 text-sm">Bayar Tunai</span>
                             </label>
                         </div>
                     </div>
                     
                     <div>
-                        <label for="promoCode" class="block text-sm font-medium text-gray-700 mb-2">
-                            Kode Promo (Opsional)
-                        </label>
+                        <label for="promoCode" class="block text-sm font-medium text-gray-700 mb-2">Kode Promo</label>
                         <div class="flex gap-2">
-                            <input 
-                                type="text" 
-                                id="promoCode"
-                                name="promoCode"
-                                placeholder="Masukkan kode promo"
-                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            >
-                            <button 
-                                type="button" 
-                                id="applyPromoBtn"
-                                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-200"
-                            >
-                                Terapkan
-                            </button>
+                            <input type="text" id="promoCode" name="promoCode" placeholder="Masukkan kode promo" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                            <button type="button" id="applyPromoBtn" class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors">Terapkan</button>
                         </div>
-                        <div id="promoMessage" class="mt-2 text-sm hidden"></div>
                     </div>
 
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <div class="flex justify-between items-center text-sm text-gray-600 mb-2">
-                            <span>Subtotal:</span>
+                    <!-- Ringkasan pembayaran -->
+                    <div class="bg-gray-50 rounded-lg p-4 mt-4 space-y-2">
+                        <div class="flex justify-between items-center text-sm text-gray-600">
+                            <span>Subtotal</span>
                             <span id="subtotal">Rp 0</span>
                         </div>
-                        <div id="discountRow" class="flex justify-between items-center text-sm text-green-600 mb-2 hidden">
-                            <span>Diskon:</span>
+                        <div id="discountRow" class="flex justify-between items-center text-sm text-green-600 hidden">
+                            <span>Diskon</span>
                             <span id="discount">Rp 0</span>
                         </div>
-                        <div class="flex justify-between items-center text-lg font-semibold text-gray-800 border-t pt-2">
-                            <span>Total:</span>
+                        <div class="flex justify-between items-center text-xl font-bold text-gray-800 border-t pt-2 mt-2">
+                            <span>Total</span>
                             <span id="totalAmount">Rp 0</span>
                         </div>
                     </div>
 
-                    <button 
-                        type="submit"
-                        class="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-                    >
-                        Proses Pembayaran
+                    <button type="submit" id="submitButton" class="w-full flex justify-center items-center py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300">
+                        <span id="buttonText">Proses Pembayaran</span>
+                        <!-- Spinner untuk loading state -->
+                        <svg id="buttonSpinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
                     </button>
                 </form>
             </div>
 
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex items-center justify-between mb-6">
+            <!-- Riwayat Transaksi -->
+            <div class="lg:col-span-3 bg-white rounded-xl shadow-lg p-6 animate-fade-up" style="animation-delay: 300ms;">
+                <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center">
-                        <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
+                        <!-- Icon Dokumen (Lucide-react equivalent) -->
+                        <svg class="w-6 h-6 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         <h2 class="text-xl font-semibold text-gray-800">Riwayat Transaksi</h2>
                     </div>
-                    <button 
-                        id="clearHistoryBtn"
-                        class="px-4 py-2 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-200 hidden"
-                    >
-                        Hapus Semua
-                    </button>
+                    <button id="clearHistoryBtn" class="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors hidden">Hapus Riwayat</button>
                 </div>
-
-                <div class="grid grid-cols-3 gap-4 mb-6">
+                <!-- Statistik transaksi -->
+                <div class="grid sm:grid-cols-3 gap-4 mb-4">
                     <div class="text-center p-3 bg-blue-50 rounded-lg">
                         <div class="text-2xl font-bold text-blue-600" id="totalTransactions">0</div>
                         <div class="text-sm text-gray-600">Transaksi</div>
@@ -186,470 +181,573 @@
                     </div>
                 </div>
 
-                <div id="transactionList" class="space-y-3 max-h-96 overflow-y-auto">
-                    <div id="emptyState" class="text-center py-8 text-gray-500">
-                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        <p class="font-medium">Belum ada transaksi</p>
-                        <p class="text-sm">Lakukan pembayaran pertama Anda!</p>
-                    </div>
+                <!-- Tabel riwayat transaksi -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-4 py-3">ID Transaksi</th>
+                                <th scope="col" class="px-4 py-3">Pelanggan</th>
+                                <th scope="col" class="px-4 py-3">Produk</th>
+                                <th scope="col" class="px-4 py-3">Total</th>
+                                <th scope="col" class="px-4 py-3">Metode</th>
+                                <th scope="col" class="px-4 py-3">Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionList">
+                            <!-- Riwayat transaksi akan dirender di sini oleh JavaScript -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+    <!-- Modal Pembayaran Berhasil -->
+    <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4 opacity-0 scale-95 transition-all duration-300 pointer-events-none">
+        <div class="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full">
             <div class="text-center mb-4">
                 <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                    <!-- Icon Centang (Lucide-react equivalent) -->
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                 </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">Pembayaran Berhasil!</h3>
-                <p class="text-gray-600">Transaksi Anda telah diproses</p>
+                <p class="text-gray-600">Transaksi Anda telah berhasil diproses.</p>
             </div>
-            
-            <div id="paymentDetails" class="bg-gray-50 rounded-lg p-4 mb-4 text-sm">
-                </div>
-            
-            <button 
-                id="closeModalBtn"
-                class="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-            >
-                Tutup
-            </button>
+            <div id="paymentDetails" class="bg-gray-50 rounded-lg p-4 mb-6 text-sm"></div>
+            <button id="closeModalBtn" class="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">Tutup</button>
+        </div>
+    </div>
+    
+    <!-- Modal Konfirmasi Hapus Riwayat (Custom, menggantikan window.confirm) -->
+    <div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4 opacity-0 scale-95 transition-all duration-300 pointer-events-none">
+        <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full text-center">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <!-- Icon Peringatan (Lucide-react equivalent) -->
+                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.332 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Hapus Riwayat Transaksi?</h3>
+            <p class="text-gray-600 mb-6">Anda yakin ingin menghapus semua riwayat transaksi? Tindakan ini tidak dapat dibatalkan.</p>
+            <div class="flex justify-end gap-3">
+                <button id="cancelConfirmBtn" class="px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors">Batal</button>
+                <button id="confirmClearBtn" class="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors">Hapus</button>
+            </div>
         </div>
     </div>
 
+    <!-- Kontainer untuk Toast Notifications -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-3"></div>
+
+    <!-- Template untuk baris transaksi baru di tabel -->
     <template id="transactionTemplate">
-        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200">
-            <div class="flex justify-between items-start mb-2">
-                <div>
-                    <h4 class="font-medium text-gray-800 transaction-customer"></h4>
-                    <p class="text-sm text-gray-600 transaction-product"></p>
-                </div>
-                <div class="text-right">
-                    <div class="font-semibold text-green-600 transaction-amount"></div>
-                    <div class="text-xs text-gray-500 transaction-time"></div>
-                </div>
-            </div>
-            <div class="flex justify-between items-center text-sm">
-                <span class="transaction-method px-2 py-1 rounded-full text-xs"></span>
-                <span class="transaction-status px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">Berhasil</span>
-            </div>
-        </div>
+        <tr class="bg-white border-b hover:bg-gray-50">
+            <td class="px-4 py-3 font-mono text-xs transaction-id"></td>
+            <td class="px-4 py-3 font-medium transaction-customer"></td>
+            <td class="px-4 py-3 text-gray-600 transaction-product"></td>
+            <td class="px-4 py-3 font-semibold transaction-amount"></td>
+            <td class="px-4 py-3"><span class="transaction-method px-2 py-1 rounded-full text-xs"></span></td>
+            <td class="px-4 py-3 text-gray-500 transaction-time"></td>
+        </tr>
+    </template>
+    
+    <!-- Template untuk tampilan kosong di riwayat transaksi -->
+    <template id="emptyStateTemplate">
+        <tr>
+            <td colspan="6" class="text-center py-10 text-gray-500">
+                <!-- Icon Dokumen Kosong (Lucide-react equivalent) -->
+                <svg class="w-12 h-12 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <p class="font-medium">Belum ada transaksi</p>
+                <p class="text-sm">Silakan lakukan pembayaran pertama Anda.</p>
+            </td>
+        </tr>
     </template>
 
+    <!-- Script JavaScript utama -->
     <script>
-        // ===== DATA & VARIABEL GLOBAL =====
-        let transactions = [];
-        let transactionIdCounter = 1;
-        let currentDiscount = 0;
-        let appliedPromoCode = '';
+        // Memastikan DOM telah dimuat sepenuhnya sebelum menjalankan script
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // **KODE PROMO DITAMBAHKAN DI SINI**
-        const promoCodes = {
-            "DISKON10": {
-                type: "percentage", // diskon persentase
-                discount: 10,       // 10% potongan
-                description: "Potongan 10% untuk semua produk"
-            },
-            "HEMAT50K": {
-                type: "fixed",      // diskon tetap
-                discount: 50000,    // potongan Rp 50.000
-                description: "Diskon tetap sebesar Rp 50.000"
-            },
-            "STUDENT20": {
-                type: "percentage",
-                discount: 20,
-                description: "Diskon 20% khusus pelajar"
-            }
-        };
-
-        // Mapping metode pembayaran dengan warna
-        const paymentMethodColors = {
-            'transfer': 'bg-blue-100 text-blue-800',
-            'ewallet': 'bg-purple-100 text-purple-800',
-            'credit': 'bg-orange-100 text-orange-800',
-            'cash': 'bg-green-100 text-green-800'
-        };
-
-        // Mapping nama metode pembayaran
-        const paymentMethodNames = {
-            'transfer': 'Transfer Bank',
-            'ewallet': 'E-Wallet',
-            'credit': 'Kartu Kredit',
-            'cash': 'Bayar Tunai'
-        };
-
-        // ===== MENDAPATKAN ELEMEN DOM =====
-        const paymentForm = document.getElementById('paymentForm');
-        const productSelect = document.getElementById('productSelect');
-        const quantity = document.getElementById('quantity');
-        const promoCode = document.getElementById('promoCode');
-        const applyPromoBtn = document.getElementById('applyPromoBtn');
-        const promoMessage = document.getElementById('promoMessage');
-        
-        // Elemen untuk menampilkan total
-        const subtotalEl = document.getElementById('subtotal');
-        const discountEl = document.getElementById('discount');
-        const discountRow = document.getElementById('discountRow');
-        const totalAmountEl = document.getElementById('totalAmount');
-        
-        // Elemen riwayat transaksi
-        const transactionList = document.getElementById('transactionList');
-        const emptyState = document.getElementById('emptyState');
-        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
-        
-        // Elemen statistik
-        const totalTransactionsEl = document.getElementById('totalTransactions');
-        const totalRevenueEl = document.getElementById('totalRevenue');
-        const avgTransactionEl = document.getElementById('avgTransaction');
-        
-        // Modal
-        const paymentModal = document.getElementById('paymentModal');
-        const paymentDetails = document.getElementById('paymentDetails');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-
-        // ===== FUNGSI UTILITY =====
-        
-        // Format mata uang Rupiah
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 0
-            }).format(amount);
-        }
-
-        // Format waktu
-        function getCurrentTime() {
-            const now = new Date();
-            return now.toLocaleString('id-ID', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }
-
-        // Generate transaction ID
-        function generateTransactionId() {
-            return 'TRX' + Date.now().toString().substr(-8) + Math.random().toString(36).substr(2, 4).toUpperCase();
-        }
-
-        // ===== FUNGSI KALKULASI =====
-        
-        // Hitung subtotal
-        function calculateSubtotal() {
-            const selectedOption = productSelect.options[productSelect.selectedIndex];
-            if (!selectedOption || !selectedOption.dataset.price) return 0;
+            // ===== DATA & VARIABEL GLOBAL =====
+            // Inisialisasi daftar transaksi, akan diisi dari localStorage
+            let transactions = [];
             
-            const price = parseInt(selectedOption.dataset.price);
-            const qty = parseInt(quantity.value) || 1;
-            return price * qty;
-        }
-
-        // Hitung diskon
-        function calculateDiscount(subtotal, promoData) {
-            if (!promoData) return 0;
-            
-            if (promoData.type === 'percentage') {
-                return Math.round(subtotal * promoData.discount / 100);
-            } else { // type === 'fixed'
-                return Math.min(promoData.discount, subtotal);
-            }
-        }
-
-        // Update tampilan total
-        function updateTotal() {
-            const subtotal = calculateSubtotal();
-            const promoData = appliedPromoCode ? promoCodes[appliedPromoCode] : null;
-            const discount = calculateDiscount(subtotal, promoData);
-            const total = subtotal - discount;
-
-            subtotalEl.textContent = formatCurrency(subtotal);
-            
-            if (discount > 0) {
-                discountEl.textContent = '-' + formatCurrency(discount);
-                discountRow.classList.remove('hidden');
-            } else {
-                discountRow.classList.add('hidden');
-            }
-            
-            totalAmountEl.textContent = formatCurrency(total);
-            currentDiscount = discount;
-        }
-
-        // ===== FUNGSI PROMO CODE =====
-        
-        // Terapkan kode promo
-        function applyPromoCode() {
-            const code = promoCode.value.trim().toUpperCase();
-            
-            if (!code) {
-                showPromoMessage('Masukkan kode promo terlebih dahulu', 'error');
-                return;
-            }
-
-            if (!promoCodes[code]) {
-                showPromoMessage('Kode promo tidak valid', 'error');
-                return;
-            }
-
-            appliedPromoCode = code;
-            updateTotal();
-            showPromoMessage(`Kode promo "${code}" berhasil diterapkan! ${promoCodes[code].description}`, 'success');
-            promoCode.disabled = true;
-            applyPromoBtn.textContent = 'Diterapkan';
-            applyPromoBtn.disabled = true;
-            applyPromoBtn.classList.remove('bg-green-500', 'hover:bg-green-600');
-            applyPromoBtn.classList.add('bg-gray-400');
-        }
-
-        // Tampilkan pesan promo
-        function showPromoMessage(message, type) {
-            promoMessage.textContent = message;
-            promoMessage.classList.remove('hidden', 'text-red-500', 'text-green-500');
-            promoMessage.classList.add(type === 'error' ? 'text-red-500' : 'text-green-500');
-        }
-
-        // Reset promo code
-        function resetPromoCode() {
-            appliedPromoCode = '';
-            currentDiscount = 0;
-            promoCode.value = '';
-            promoCode.disabled = false;
-            applyPromoBtn.textContent = 'Terapkan';
-            applyPromoBtn.disabled = false;
-            applyPromoBtn.classList.remove('bg-gray-400');
-            applyPromoBtn.classList.add('bg-green-500', 'hover:bg-green-600');
-            promoMessage.classList.add('hidden');
-            updateTotal();
-        }
-
-        // ===== FUNGSI TRANSAKSI =====
-        
-        // Proses pembayaran
-        function processPayment(formData) {
-            const selectedOption = productSelect.options[productSelect.selectedIndex];
-            const subtotal = calculateSubtotal();
-            const total = subtotal - currentDiscount;
-
-            const transaction = {
-                id: generateTransactionId(),
-                customerName: formData.get('customerName'),
-                customerEmail: formData.get('customerEmail'),
-                product: selectedOption.textContent,
-                productValue: selectedOption.value,
-                quantity: parseInt(formData.get('quantity')),
-                paymentMethod: formData.get('paymentMethod'),
-                promoCode: appliedPromoCode,
-                subtotal: subtotal,
-                discount: currentDiscount,
-                total: total,
-                timestamp: new Date(),
-                time: getCurrentTime(),
-                status: 'success'
+            // Daftar kode promo yang tersedia
+            const promoCodes = {
+                "DISKON10": { type: "percentage", discount: 10, description: "Potongan 10%" },
+                "HEMAT50K": { type: "fixed", discount: 50000, description: "Diskon tetap Rp 50.000" },
+                "STUDENT20": { type: "percentage", discount: 20, description: "Diskon 20% khusus pelajar" }
             };
 
-            transactions.push(transaction);
-            return transaction;
-        }
+            // Mapping warna Tailwind CSS untuk metode pembayaran
+            const paymentMethodColors = {
+                'transfer': 'bg-blue-100 text-blue-800',
+                'ewallet': 'bg-purple-100 text-purple-800',
+                'credit': 'bg-orange-100 text-orange-800',
+                'cash': 'bg-green-100 text-green-800'
+            };
 
-        // Tampilkan modal konfirmasi
-        function showPaymentModal(transaction) {
-            paymentDetails.innerHTML = `
-                <div class="space-y-2">
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">ID Transaksi:</span>
-                        <span class="font-medium">${transaction.id}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Nama:</span>
-                        <span class="font-medium">${transaction.customerName}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Produk:</span>
-                        <span class="font-medium">${transaction.product}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Jumlah:</span>
-                        <span class="font-medium">${transaction.quantity}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Metode:</span>
-                        <span class="font-medium">${paymentMethodNames[transaction.paymentMethod]}</span>
-                    </div>
-                    ${transaction.discount > 0 ? `
-                    <div class="flex justify-between text-green-600">
-                        <span>Diskon:</span>
-                        <span class="font-medium">-${formatCurrency(transaction.discount)}</span>
-                    </div>
-                    ` : ''}
-                    <hr class="my-2">
-                    <div class="flex justify-between text-lg font-semibold">
-                        <span>Total:</span>
-                        <span class="text-green-600">${formatCurrency(transaction.total)}</span>
-                    </div>
-                </div>
-            `;
+            // Mapping nama tampilan untuk metode pembayaran
+            const paymentMethodNames = {
+                'transfer': 'Transfer Bank',
+                'ewallet': 'E-Wallet',
+                'credit': 'Kartu Kredit',
+                'cash': 'Bayar Tunai'
+            };
+
+            // Objek untuk menyimpan state aplikasi saat ini
+            let appState = { currentDiscount: 0, appliedPromoCode: '' };
+
+            // ===== MENDAPATKAN ELEMEN DOM =====
+            const paymentForm = document.getElementById('paymentForm');
+            const productSelect = document.getElementById('productSelect');
+            const quantity = document.getElementById('quantity');
+            const promoCodeInput = document.getElementById('promoCode');
+            const applyPromoBtn = document.getElementById('applyPromoBtn');
             
-            paymentModal.classList.remove('hidden');
-            paymentModal.classList.add('flex');
-        }
-
-        // Tutup modal
-        function closeModal() {
-            paymentModal.classList.add('hidden');
-            paymentModal.classList.remove('flex');
-        }
-
-        // ===== FUNGSI RIWAYAT TRANSAKSI =====
-        
-        // Buat elemen transaksi
-        function createTransactionElement(transaction) {
-            const template = document.getElementById('transactionTemplate');
-            const clone = template.content.cloneNode(true);
+            const subtotalEl = document.getElementById('subtotal');
+            const discountEl = document.getElementById('discount');
+            const discountRow = document.getElementById('discountRow');
+            const totalAmountEl = document.getElementById('totalAmount');
             
-            clone.querySelector('.transaction-customer').textContent = transaction.customerName;
-            clone.querySelector('.transaction-product').textContent = `${transaction.product} (${transaction.quantity}x)`;
-            clone.querySelector('.transaction-amount').textContent = formatCurrency(transaction.total);
-            clone.querySelector('.transaction-time').textContent = transaction.time;
+            const transactionList = document.getElementById('transactionList');
+            const clearHistoryBtn = document.getElementById('clearHistoryBtn');
             
-            const methodEl = clone.querySelector('.transaction-method');
-            methodEl.textContent = paymentMethodNames[transaction.paymentMethod];
-            methodEl.className += ' ' + paymentMethodColors[transaction.paymentMethod];
+            const totalTransactionsEl = document.getElementById('totalTransactions');
+            const totalRevenueEl = document.getElementById('totalRevenue');
+            const avgTransactionEl = document.getElementById('avgTransaction');
             
-            return clone;
-        }
+            const paymentModal = document.getElementById('paymentModal');
+            const paymentDetails = document.getElementById('paymentDetails');
+            const closeModalBtn = document.getElementById('closeModalBtn');
 
-        // Render daftar transaksi
-        function renderTransactions() {
-            transactionList.innerHTML = ''; // Clear list
+            const confirmModal = document.getElementById('confirmModal');
+            const cancelConfirmBtn = document.getElementById('cancelConfirmBtn');
+            const confirmClearBtn = document.getElementById('confirmClearBtn');
 
-            if (transactions.length === 0) {
-                transactionList.appendChild(emptyState);
-                emptyState.style.display = 'block';
-                clearHistoryBtn.classList.add('hidden');
-            } else {
-                emptyState.style.display = 'none';
-                clearHistoryBtn.classList.remove('hidden');
+            const submitButton = document.getElementById('submitButton');
+            const buttonText = document.getElementById('buttonText');
+            const buttonSpinner = document.getElementById('buttonSpinner');
+            
+            const toastContainer = document.getElementById('toastContainer');
 
-                const sortedTransactions = [...transactions].reverse();
-                sortedTransactions.forEach(transaction => {
-                    const transactionElement = createTransactionElement(transaction);
-                    transactionList.appendChild(transactionElement);
+            // ===== FUNGSI UTILITY & UI =====
+
+            /**
+             * Memformat angka menjadi format mata uang Rupiah.
+             * @param {number} amount - Jumlah yang akan diformat.
+             * @returns {string} - String mata uang yang diformat.
+             */
+            const formatCurrency = amount => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(amount);
+
+            /**
+             * Mendapatkan waktu saat ini dalam format HH:MM.
+             * @returns {string} - Waktu saat ini.
+             */
+            const getCurrentTime = () => new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            /**
+             * Menghasilkan ID transaksi unik.
+             * @returns {string} - ID transaksi.
+             */
+            const generateTransactionId = () => 'TRX-' + Date.now().toString().slice(-6);
+
+            /**
+             * Menampilkan notifikasi toast.
+             * @param {string} message - Pesan yang akan ditampilkan.
+             * @param {'success'|'error'} type - Tipe notifikasi (sukses atau error).
+             */
+            function showToast(message, type = 'success') {
+                const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+                const toast = document.createElement('div');
+                toast.className = `w-auto px-6 py-3 rounded-lg shadow-lg text-white ${bgColor} animate-slide-in-down`;
+                toast.textContent = message;
+                toastContainer.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.classList.remove('animate-slide-in-down');
+                    toast.classList.add('animate-fade-out'); // Tambahkan animasi keluar
+                    toast.addEventListener('animationend', () => toast.remove()); // Hapus setelah animasi selesai
+                }, 3000); // Tampilkan selama 3 detik
+            }
+
+            /**
+             * Menampilkan atau menyembunyikan modal.
+             * @param {HTMLElement} modalElement - Elemen modal yang akan diatur.
+             * @param {boolean} show - True untuk menampilkan, false untuk menyembunyikan.
+             */
+            function toggleModal(modalElement, show) {
+                if (show) {
+                    modalElement.classList.add('modal-active'); // Menggunakan kelas yang di-style CSS
+                } else {
+                    modalElement.classList.remove('modal-active');
+                }
+            }
+
+            // ===== FUNGSI PENYIMPANAN DATA (LOCALSTORAGE) =====
+
+            /**
+             * Memuat data transaksi dari localStorage.
+             */
+            function loadTransactions() {
+                try {
+                    const storedTransactions = localStorage.getItem('modernPaymentTransactions');
+                    if (storedTransactions) {
+                        transactions = JSON.parse(storedTransactions);
+                    }
+                } catch (error) {
+                    console.error("Gagal memuat transaksi dari localStorage:", error);
+                    transactions = []; // Reset jika ada error
+                    showToast('Gagal memuat data transaksi. Data telah direset.', 'error');
+                }
+            }
+
+            /**
+             * Menyimpan data transaksi ke localStorage.
+             */
+            function saveTransactions() {
+                try {
+                    localStorage.setItem('modernPaymentTransactions', JSON.stringify(transactions));
+                } catch (error) {
+                    console.error("Gagal menyimpan transaksi ke localStorage:", error);
+                    showToast('Gagal menyimpan data transaksi.', 'error');
+                }
+            }
+
+            // ===== FUNGSI KALKULASI =====
+
+            /**
+             * Menghitung subtotal berdasarkan produk dan kuantitas yang dipilih.
+             * @returns {number} - Nilai subtotal.
+             */
+            function calculateSubtotal() {
+                const selectedOption = productSelect.options[productSelect.selectedIndex];
+                // Pastikan ada produk yang dipilih dan memiliki harga
+                if (!selectedOption || !selectedOption.dataset.price) return 0;
+
+                const price = parseInt(selectedOption.dataset.price, 10);
+                const qty = parseInt(quantity.value, 10) || 1; // Default quantity 1
+                return price * qty;
+            }
+
+            /**
+             * Menghitung diskon berdasarkan subtotal dan data promo.
+             * @param {number} subtotal - Nilai subtotal.
+             * @param {object | null} promoData - Objek data promo atau null jika tidak ada.
+             * @returns {number} - Nilai diskon yang dihitung.
+             */
+            function calculateDiscount(subtotal, promoData) {
+                if (!promoData) return 0; // Tidak ada promo
+
+                if (promoData.type === 'percentage') {
+                    return Math.round(subtotal * promoData.discount / 100);
+                } else if (promoData.type === 'fixed') {
+                    return Math.min(promoData.discount, subtotal); // Diskon tidak boleh melebihi subtotal
+                }
+                return 0;
+            }
+
+            /**
+             * Memperbarui tampilan subtotal, diskon, dan total pembayaran.
+             */
+            function updateTotal() {
+                const subtotal = calculateSubtotal();
+                const promoData = appState.appliedPromoCode ? promoCodes[appState.appliedPromoCode] : null;
+                const discount = calculateDiscount(subtotal, promoData);
+                const total = subtotal - discount;
+
+                subtotalEl.textContent = formatCurrency(subtotal);
+                if (discount > 0) {
+                    discountEl.textContent = '-' + formatCurrency(discount);
+                    discountRow.classList.remove('hidden');
+                } else {
+                    discountRow.classList.add('hidden');
+                }
+                totalAmountEl.textContent = formatCurrency(total);
+                appState.currentDiscount = discount; // Simpan diskon saat ini di state
+            }
+
+            // ===== FUNGSI PROMO & TRANSAKSI =====
+
+            /**
+             * Menerapkan kode promo yang dimasukkan pengguna.
+             */
+            function applyPromoCode() {
+                const code = promoCodeInput.value.trim().toUpperCase();
+                
+                if (!code) {
+                    showToast('Masukkan kode promo!', 'error');
+                    return;
+                }
+
+                if (!promoCodes[code]) {
+                    showToast('Kode promo tidak valid!', 'error');
+                    appState.appliedPromoCode = ''; // Hapus promo sebelumnya jika kode tidak valid
+                    updateTotal();
+                    return;
+                }
+
+                appState.appliedPromoCode = code; // Terapkan kode promo ke state
+                updateTotal(); // Perbarui total
+                showToast(`Promo "${code}" berhasil diterapkan: ${promoCodes[code].description}`);
+            }
+
+            /**
+             * Mengatur ulang formulir pembayaran dan state aplikasi.
+             */
+            function resetFormState() {
+                paymentForm.reset();
+                appState = { currentDiscount: 0, appliedPromoCode: '' }; // Reset state diskon
+                updateTotal(); // Perbarui total menjadi 0
+            }
+
+            // ===== RENDER & DOM MANIPULATION =====
+
+            /**
+             * Merender daftar transaksi ke tabel.
+             */
+            function renderTransactions() {
+                transactionList.innerHTML = ''; // Hapus semua baris yang ada
+                if (transactions.length === 0) {
+                    // Tampilkan pesan "belum ada transaksi" jika daftar kosong
+                    const emptyTemplate = document.getElementById('emptyStateTemplate');
+                    transactionList.appendChild(emptyTemplate.content.cloneNode(true));
+                    clearHistoryBtn.classList.add('hidden'); // Sembunyikan tombol hapus
+                } else {
+                    clearHistoryBtn.classList.remove('hidden'); // Tampilkan tombol hapus
+                    // Render transaksi terbaru di atas
+                    transactions.slice().reverse().forEach(transaction => {
+                        const template = document.getElementById('transactionTemplate');
+                        const clone = template.content.cloneNode(true);
+                        const row = clone.querySelector('tr');
+
+                        // Isi data transaksi ke dalam template
+                        row.querySelector('.transaction-id').textContent = transaction.id;
+                        row.querySelector('.transaction-customer').textContent = transaction.customerName;
+                        row.querySelector('.transaction-product').textContent = `${transaction.product.split(' - ')[0]} (${transaction.quantity}x)`;
+                        row.querySelector('.transaction-amount').textContent = formatCurrency(transaction.total);
+                        
+                        const methodEl = row.querySelector('.transaction-method');
+                        methodEl.textContent = paymentMethodNames[transaction.paymentMethod];
+                        // Tambahkan kelas warna berdasarkan metode pembayaran
+                        methodEl.classList.add(paymentMethodColors[transaction.paymentMethod]);
+                        
+                        row.querySelector('.transaction-time').textContent = transaction.time;
+                        
+                        row.classList.add('animate-slide-in-down'); // Animasi masuk untuk baris baru
+                        transactionList.appendChild(clone);
+                    });
+                }
+                updateStatistics(); // Perbarui statistik setelah merender
+            }
+            
+            /**
+             * Memperbarui statistik total transaksi, pendapatan, dan rata-rata.
+             */
+            function updateStatistics() {
+                const totalTrans = transactions.length;
+                const totalRev = transactions.reduce((sum, t) => sum + t.total, 0);
+                const avgTrans = totalTrans > 0 ? totalRev / totalTrans : 0; // Hindari pembagian nol
+
+                totalTransactionsEl.textContent = totalTrans;
+                totalRevenueEl.textContent = formatCurrency(totalRev);
+                avgTransactionEl.textContent = formatCurrency(avgTrans);
+            }
+            
+            // ===== MODAL LOGIC (Pembayaran Berhasil) =====
+
+            /**
+             * Menampilkan modal pembayaran berhasil dengan detail transaksi.
+             * @param {object} transaction - Objek transaksi yang berhasil.
+             */
+            function showPaymentSuccessModal(transaction) {
+                paymentDetails.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex justify-between"><span>ID Transaksi:</span><span class="font-medium font-mono text-xs">${transaction.id}</span></div>
+                        <div class="flex justify-between"><span>Nama:</span><span class="font-medium">${transaction.customerName}</span></div>
+                        <div class="flex justify-between"><span>Produk:</span><span class="font-medium">${transaction.product}</span></div>
+                        <div class="flex justify-between"><span>Metode:</span><span class="font-medium">${paymentMethodNames[transaction.paymentMethod]}</span></div>
+                        <div class="flex justify-between"><span>Total Bayar:</span><span class="font-bold text-green-600">${formatCurrency(transaction.total)}</span></div>
+                        <div class="flex justify-between"><span>Waktu:</span><span class="font-medium">${transaction.time}</span></div>
+                    </div>`;
+                toggleModal(paymentModal, true);
+            }
+            
+            /**
+             * Menutup modal pembayaran berhasil.
+             */
+            function closePaymentSuccessModal() {
+                toggleModal(paymentModal, false);
+            }
+
+            // ===== MODAL LOGIC (Konfirmasi Hapus Riwayat) =====
+
+            /**
+             * Menampilkan modal konfirmasi untuk menghapus riwayat transaksi.
+             */
+            function showClearHistoryConfirmModal() {
+                toggleModal(confirmModal, true);
+            }
+
+            /**
+             * Menutup modal konfirmasi hapus riwayat.
+             */
+            function closeClearHistoryConfirmModal() {
+                toggleModal(confirmModal, false);
+            }
+
+            /**
+             * Menghapus semua riwayat transaksi.
+             */
+            function clearAllTransactions() {
+                transactions = []; // Kosongkan array transaksi
+                saveTransactions(); // Simpan perubahan ke localStorage
+                renderTransactions(); // Render ulang tabel (akan menampilkan empty state)
+                showToast('Riwayat transaksi telah dihapus.', 'success');
+                closeClearHistoryConfirmModal();
+            }
+
+            // ===== MAIN LOGIC & EVENT LISTENERS =====
+
+            /**
+             * Handler untuk pengiriman formulir pembayaran.
+             * @param {Event} e - Objek event.
+             */
+            async function handlePaymentSubmit(e) {
+                e.preventDefault(); // Mencegah refresh halaman
+                
+                const formData = new FormData(paymentForm);
+                const selectedProductOption = productSelect.options[productSelect.selectedIndex];
+
+                // Validasi input
+                if (!selectedProductOption || !selectedProductOption.value) {
+                    showToast('Pilih produk terlebih dahulu!', 'error');
+                    return;
+                }
+                if (!formData.get('customerName').trim()) {
+                    showToast('Nama pelanggan tidak boleh kosong!', 'error');
+                    return;
+                }
+                if (!formData.get('customerEmail').trim()) {
+                    showToast('Email pelanggan tidak boleh kosong!', 'error');
+                    return;
+                }
+                if (!formData.get('paymentMethod')) {
+                    showToast('Pilih metode pembayaran!', 'error');
+                    return;
+                }
+                if (calculateSubtotal() <= 0) {
+                    showToast('Jumlah pembayaran tidak valid. Pastikan produk dan kuantitas benar.', 'error');
+                    return;
+                }
+
+                // Aktifkan loading state pada tombol
+                buttonText.classList.add('hidden');
+                buttonSpinner.classList.remove('hidden');
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-75', 'cursor-not-allowed');
+
+                try {
+                    // Simulasi delay jaringan/pemrosesan API
+                    await new Promise(resolve => setTimeout(resolve, 1500)); // 1.5 detik delay
+
+                    const transaction = {
+                        id: generateTransactionId(),
+                        customerName: formData.get('customerName'),
+                        customerEmail: formData.get('customerEmail'),
+                        product: selectedProductOption.textContent, // Teks lengkap produk (misal: "Paket Basic - Rp 50.000")
+                        quantity: parseInt(formData.get('quantity'), 10),
+                        paymentMethod: formData.get('paymentMethod'),
+                        total: calculateSubtotal() - appState.currentDiscount,
+                        time: getCurrentTime()
+                    };
+
+                    transactions.push(transaction); // Tambahkan transaksi baru
+                    saveTransactions(); // Simpan ke localStorage
+                    
+                    showPaymentSuccessModal(transaction); // Tampilkan modal sukses
+                    renderTransactions(); // Render ulang daftar transaksi
+                    resetFormState(); // Reset formulir
+
+                } catch (error) {
+                    console.error("Error saat memproses pembayaran:", error);
+                    showToast('Terjadi kesalahan saat memproses pembayaran. Coba lagi.', 'error');
+                } finally {
+                    // Nonaktifkan loading state pada tombol
+                    buttonText.classList.remove('hidden');
+                    buttonSpinner.classList.add('hidden');
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('opacity-75', 'cursor-not-allowed');
+                }
+            }
+
+            /**
+             * Mengikat semua event listener ke elemen DOM.
+             */
+            function bindEventListeners() {
+                // Event listener untuk perubahan produk atau kuantitas untuk memperbarui total
+                ['change', 'input'].forEach(evt => {
+                    productSelect.addEventListener(evt, updateTotal);
+                    quantity.addEventListener(evt, updateTotal);
                 });
+                
+                // Event listener untuk tombol 'Terapkan' promo
+                applyPromoBtn.addEventListener('click', applyPromoCode);
+                // Event listener untuk menekan 'Enter' di input promo
+                promoCodeInput.addEventListener('keypress', e => { 
+                    if (e.key === 'Enter') { 
+                        e.preventDefault(); // Mencegah submit form jika input ada di dalam form
+                        applyPromoCode(); 
+                    }
+                });
+                
+                // Event listener untuk submit formulir pembayaran
+                paymentForm.addEventListener('submit', handlePaymentSubmit);
+
+                // Event listener untuk tombol 'Tutup' pada modal pembayaran berhasil
+                closeModalBtn.addEventListener('click', closePaymentSuccessModal);
+                // Event listener untuk klik di luar area modal pembayaran berhasil (overlay)
+                paymentModal.addEventListener('click', e => { 
+                    if (e.target === paymentModal) closePaymentSuccessModal(); 
+                });
+                // Event listener untuk menekan tombol 'Escape' untuk menutup modal
+                document.addEventListener('keydown', e => { 
+                    if (e.key === 'Escape') {
+                        closePaymentSuccessModal();
+                        closeClearHistoryConfirmModal(); // Tutup juga modal konfirmasi
+                    }
+                });
+                
+                // Event listener untuk tombol 'Hapus Riwayat'
+                clearHistoryBtn.addEventListener('click', showClearHistoryConfirmModal);
+
+                // Event listener untuk tombol 'Batal' di modal konfirmasi
+                cancelConfirmBtn.addEventListener('click', closeClearHistoryConfirmModal);
+                // Event listener untuk tombol 'Hapus' di modal konfirmasi
+                confirmClearBtn.addEventListener('click', clearAllTransactions);
             }
 
-            updateStatistics();
-        }
+            /**
+             * Fungsi inisialisasi aplikasi.
+             */
+            function init() {
+                loadTransactions(); // Muat transaksi dari localStorage
+                renderTransactions(); // Render tampilan transaksi
+                updateTotal(); // Perbarui tampilan total awal
+                bindEventListeners(); // Ikat semua event listener
+                
+                // Animasi elemen saat aplikasi dimuat
+                document.querySelectorAll('.animate-fade-up').forEach((el, index) => {
+                    el.style.animationDelay = `${100 * (index + 1)}ms`;
+                    el.classList.add('opacity-100'); // Pastikan elemen terlihat setelah animasi
+                });
 
-
-        // Update statistik
-        function updateStatistics() {
-            const totalTrans = transactions.length;
-            const totalRev = transactions.reduce((sum, t) => sum + t.total, 0);
-            const avgTrans = totalTrans > 0 ? totalRev / totalTrans : 0;
-
-            totalTransactionsEl.textContent = totalTrans;
-            totalRevenueEl.textContent = formatCurrency(totalRev);
-            avgTransactionEl.textContent = formatCurrency(avgTrans);
-        }
-
-        // Hapus semua riwayat
-        function clearAllHistory() {
-            if (transactions.length === 0) return;
-            
-            if (confirm('Apakah Anda yakin ingin menghapus semua riwayat transaksi?')) {
-                transactions = [];
-                renderTransactions();
-            }
-        }
-
-        // Reset form
-        function resetForm() {
-            paymentForm.reset();
-            resetPromoCode();
-            updateTotal();
-        }
-
-        // ===== EVENT LISTENERS =====
-        
-        // Form submission
-        paymentForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(paymentForm);
-            
-            if (!formData.get('paymentMethod')) {
-                alert('Silakan pilih metode pembayaran');
-                return;
+                // Fokus pada input nama pelanggan saat halaman dimuat
+                document.getElementById('customerName').focus();
             }
 
-            const total = calculateSubtotal() - currentDiscount;
-            if (calculateSubtotal() <= 0) {
-                alert('Silakan pilih produk terlebih dahulu');
-                return;
-            }
-
-            try {
-                const transaction = processPayment(formData);
-                showPaymentModal(transaction);
-                renderTransactions();
-                resetForm();
-            } catch (error) {
-                alert('Terjadi kesalahan saat memproses pembayaran');
-                console.error('Payment error:', error);
-            }
+            // Panggil fungsi inisialisasi saat DOM siap
+            init();
         });
-
-        // Product select dan quantity change
-        productSelect.addEventListener('change', updateTotal);
-        quantity.addEventListener('input', updateTotal);
-
-        // Promo code
-        applyPromoBtn.addEventListener('click', applyPromoCode);
-        promoCode.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                applyPromoCode();
-            }
-        });
-
-        // Modal controls
-        closeModalBtn.addEventListener('click', closeModal);
-        paymentModal.addEventListener('click', function(e) {
-            if (e.target === paymentModal) {
-                closeModal();
-            }
-        });
-
-        // Clear history
-        clearHistoryBtn.addEventListener('click', clearAllHistory);
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && !paymentModal.classList.contains('hidden')) {
-                closeModal();
-            }
-        });
-
-        // ===== INISIALISASI =====
-        
-        // Initialize app
-        function initApp() {
-            renderTransactions();
-            updateTotal();
-            document.getElementById('customerName').focus();
-        }
-
-        // Jalankan saat DOM siap
-        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>
