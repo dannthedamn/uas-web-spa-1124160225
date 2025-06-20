@@ -1,0 +1,260 @@
+/* Custom Keyframes untuk Animasi Masuk (fade-in) */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Keyframes untuk Animasi Muncul (fade-up) */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Keyframes untuk Animasi Keluar (fade-out) */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Toggle Switch Animation */
+@keyframes toggleSlide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Gradient Animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Icon Image Styles */
+.icon-campus {
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease;
+}
+
+.icon-profile {
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.icon-profile:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Error state for images */
+.icon-error {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+/* Kelas untuk menerapkan animasi */
+.animate-slide-in-down {
+  animation: slideInDown 0.5s ease-out forwards;
+}
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+.animate-fade-out {
+  animation: fadeOut 0.5s ease-in forwards;
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* Styling tambahan untuk modal, agar transisinya halus */
+.modal-active {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  pointer-events: auto !important;
+}
+
+/* Mobile-specific modal adjustments */
+@media (max-width: 640px) {
+  .modal-active {
+    transform: scale(1) translateY(0) !important;
+  }
+
+  #paymentModal,
+  #confirmModal {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+
+  #paymentModal > div,
+  #confirmModal > div {
+    border-radius: 1rem 1rem 0 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* Custom scrollbar untuk mobile */
+@media (max-width: 768px) {
+  .table-container {
+    scrollbar-width: thin;
+  }
+
+  .table-container::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .table-container::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-700;
+    border-radius: 3px;
+  }
+
+  .table-container::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600;
+    border-radius: 3px;
+  }
+}
+
+/* Improved touch targets for mobile */
+@media (max-width: 768px) {
+  input[type="radio"] {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .payment-method-label {
+    min-height: 48px !important;
+    padding: 12px !important;
+  }
+}
+
+/* Mobile typography scaling */
+@media (max-width: 640px) {
+  .mobile-title {
+    font-size: 2rem !important;
+    line-height: 2.25rem !important;
+  }
+
+  .mobile-subtitle {
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Dark mode specific styles */
+.dark .bg-gradient-light {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+}
+
+/* Light mode specific styles */
+.bg-gradient-light {
+  background: linear-gradient(
+    135deg,
+    #fef3c7 0%,
+    #fde68a 25%,
+    #f3e8ff 50%,
+    #e0e7ff 75%,
+    #dbeafe 100%
+  );
+}
+
+/* Styling untuk font Inter */
+body {
+  font-family: "Inter", sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* Fix untuk sticky toast pada mobile */
+@media (max-width: 640px) {
+  #toastContainer {
+    bottom: 20px !important;
+    right: 16px !important;
+    left: 16px !important;
+  }
+
+  #toastContainer > div {
+    width: 100% !important;
+    text-align: center !important;
+  }
+}
+
+/* Custom toggle switch styles */
+.toggle-switch {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background: #e5e7eb;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dark .toggle-switch {
+  background: #374151;
+}
+
+.toggle-switch.active {
+  background: #3b82f6;
+}
+
+.dark .toggle-switch.active {
+  background: #6366f1;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 26px;
+  height: 26px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch.active .toggle-slider {
+  transform: translateX(30px);
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease, box-shadow 0.3s ease;
+}
